@@ -1,5 +1,6 @@
 <?php
 class db{
+
 /**
  * Connessione con database locale mySQL
  *
@@ -9,6 +10,7 @@ class db{
  * @return [PDO] $pdo oggetto di connessione con il database
  * @throws [PDOException] $e errore di connessione con il database
  */
+
 private $pdo;
 function __construct(String $dbname='',String $username='',String $password=''){
 
