@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <form action="" method="post">
+        <input type="text" name="user" required placeholder="Inserire username">
+        <input type="password" name="psw" required placeholder="Inserire password">
+        <input type="submit" value="Invio">
+    </form>
+
+</body>
+</html>
+<script>
+    //  chiamata ajax per il login ad api rest js
+    $(document).ready(function(){
+        $("form").submit(function(e){
+                $.ajax({
+                    url: "http://localhost:5000/api/login",
+                    type: "POST",
+                    data: 
+                    {
+                    username: $("input[name='user']").val(),
+                    password: $("input[name='psw']").val()
+                    },
+                    success: function(data){
+                        // vai ad index.html com i cookie di sessione
+                        newCookie("token", data.token, time()+(60*60*24));
+                        window.location.href = "http://localhost:8080/index.html";
+                    },
+                    
+                    error: function(err){
+                         // allert di errore
+                         swal({  title:"Errore",
+                         text:"Username o password errati",
+                         icon:"error",
+                         button:{ 
+                             cancel:{
+                                 text:"Cancel",
+                                 value:false,
+                                 visible:true,
+                                 className:"btn btn-danger",
+                                 href:"http://google.com"
+                             },
+                             confirm:{
+                                 text:"Confirm",
+                                 value:true,
+                                 visible:true,
+                                 className:"btn btn-success"
+                             }
+                         }
+                     });
+                    }
+                });
+            });
+        });
+</script>
